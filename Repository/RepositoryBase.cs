@@ -1,4 +1,5 @@
-﻿using Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository;
 using System.Linq.Expressions;
 
 public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
