@@ -2,5 +2,5 @@
 
 public interface ICompanyService
 {
-    IEnumerable<Company> GetAllCompanis(bool trackChanges);
+    IEnumerable<Company> GetAllCompanies(bool trackChanges);
 }
