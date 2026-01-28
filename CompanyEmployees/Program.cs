@@ -1,6 +1,7 @@
 using CompanyEmployees.Extensions;
 using Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +37,12 @@ var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);
+
+//NewtonsoftJsonPatchInputFormatter GetJsonPatchInputFormatter() =>
+//new ServiceCollection().AddLogging().AddMvc().AddNewtonsoftJson()
+//.Services.BuildServiceProvider()
+//.GetRequiredService<IOptions<MvcOptions>>().Value.InputFormatters
+//.OfType<NewtonsoftJsonPatchInputFormatter>().First();
 
 if (app.Environment.IsProduction())
     app.UseHsts();
