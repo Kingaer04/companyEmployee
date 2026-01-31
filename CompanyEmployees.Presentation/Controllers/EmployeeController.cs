@@ -49,6 +49,10 @@ public class EmployeesController : ControllerBase
     {
         if (employee is null)
             return BadRequest("EmployeeForUpdateDto object is null");
+
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
+
         _service.EmployeeService.UpdateEmployeeForCompany(companyId, id, employee,
         compTrackChanges: false, empTrackChanges: true);
         return NoContent();
@@ -63,6 +67,7 @@ public class EmployeesController : ControllerBase
         compTrackChanges: false,
         empTrackChanges: true);
         patchDoc.ApplyTo(result.employeeToPatch);
+        //patchDoc.ApplyTo(employeeToPatch, ModelState);
         _service.EmployeeService.SaveChangesForPatch(result.employeeToPatch,
         result.employeeEntity);
         return NoContent();
