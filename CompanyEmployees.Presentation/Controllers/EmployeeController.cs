@@ -70,7 +70,9 @@ public class EmployeesController : ControllerBase
         var result = await _service.EmployeeService.GetEmployeeForPatchAsync(companyId, id,
             compTrackChanges: false, empTrackChanges: true);
 
-        patchDoc.ApplyTo(result.employeeToPatch, ModelState);
+        patchDoc.ApplyTo(result.employeeToPatch, (Microsoft.AspNetCore.JsonPatch.Adapters.IObjectAdapter)ModelState);
+
+        TryValidateModel(result.employeeToPatch);
 
         if (!ModelState.IsValid)
             return UnprocessableEntity(ModelState);
