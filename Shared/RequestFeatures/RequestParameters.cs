@@ -1,18 +1,21 @@
-﻿public abstract class RequestParameters
+﻿namespace Shared.RequestParameters
 {
-    const int maxPageSize = 50;
-    public int PageNumber { get; set; } = 1;
-
-    private int _pageSize = 10;
-    public int PageSize
+    public abstract class RequestParameters
     {
-        get
+        const int maxPageSize = 50;
+        public int PageNumber { get; set; } = 1;
+
+        private int _pageSize = 10;
+        public int PageSize
         {
-            return _pageSize;
-        }
-        set
-        {
-            _pageSize = (value > maxPageSize) ? maxPageSize : value;
+            get
+            {
+                return _pageSize;
+            }
+            set
+            {
+                _pageSize = (value > maxPageSize) ? maxPageSize : value;
+            }
         }
     }
 } 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Shared.RequestParameters;
 
 [Route("api/companies/{companyId}/employees")]
 [ApiController]
