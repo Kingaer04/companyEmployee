@@ -1,5 +1,4 @@
-﻿namespace Shared.RequestParameters
-{
+﻿namespace Shared.RequestFeatures {
     public abstract class RequestParameters
     {
         const int maxPageSize = 50;
@@ -18,4 +17,4 @@
             }
         }
     }
-} 
+}

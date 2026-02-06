@@ -1,3 +1,6 @@
-﻿public class EmployeeParameters : RequestParameters
+﻿namespace Shared.RequestFeatures
 {
+    public class EmployeeParameters : RequestParameters
+    {
+    }
 }
