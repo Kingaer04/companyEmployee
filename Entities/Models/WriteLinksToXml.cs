@@ -4,6 +4,7 @@ using System.Xml;
 private void WriteLinksToXml(string key, object value, XmlWriter writer)
 {
     writer.WriteStartElement(key);
+
     if (value.GetType() == typeof(List<Link>))
     {
         foreach (var val in value as List<Link>)
@@ -19,5 +20,6 @@ private void WriteLinksToXml(string key, object value, XmlWriter writer)
     {
         writer.WriteString(value.ToString());
     }
+
     writer.WriteEndElement();
 }
