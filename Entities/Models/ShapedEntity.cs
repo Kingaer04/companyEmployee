@@ -1,11 +1,13 @@
-﻿namespace Entities.Models
+﻿using System.Dynamic;
+
+namespace Entities.Models
 {
     public class ShapedEntity
     {
         public ShapedEntity() { 
-            Entity = new Entity();
+            Entity = new ExpandoObject();
         }
         public Guid Id { get; set; }
-        public Entity Entity { get; set; }
+        public ExpandoObject Entity { get; set; }
     }
 }
