@@ -1,4 +1,5 @@
 ﻿using Entities.LinkModels;
+using Microsoft.AspNetCore.Http;
 
 namespace Contracts
 {
