@@ -1,12 +1,11 @@
 ﻿using Entities.LinkModels;
 using Entities.Models;
 using Shared.RequestFeatures;
-using System.Dynamic;
 
 public interface IEmployeeService
 {
     Task<(LinkResponse linkResponse, MetaData metaData)> GetEmployeesAsync(Guid companyId, LinkParameters linkParameters, bool trackChanges);
-    Task<EmployeeDto> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges);
+    Task<ShapedEntity> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges, string fields);
     Task<EmployeeDto> CreateEmployeeForCompanyAsync(Guid companyId, EmployeeForCreationDto employeeForCreation, bool trackChanges);
     Task DeleteEmployeeForCompanyAsync(Guid companyId, Guid id, bool trackChanges);
     Task UpdateEmployeeForCompanyAsync(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate, bool compTrackChanges, bool empTrackChanges);

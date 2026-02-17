@@ -9,7 +9,6 @@ using System.Text.Json;
 public class EmployeesController : ControllerBase
 {
     private readonly IServiceManager _service;
-
     public EmployeesController(IServiceManager service) => _service = service;
 
     [HttpGet]
@@ -18,17 +17,15 @@ public class EmployeesController : ControllerBase
     {
         var linkParams = new LinkParameters(employeeParameters, HttpContext);
         var result = await _service.EmployeeService.GetEmployeesAsync(companyId, linkParams, trackChanges: false);
-
         Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(result.metaData));
-
         return result.linkResponse.HasLinks ? Ok(result.linkResponse.LinkedEntities) : Ok(result.linkResponse.ShapedEntities);
     }
 
     [HttpGet("{id:guid}", Name = "GetEmployeeForCompany")]
-    public async Task<IActionResult> GetEmployeeForCompany(Guid companyId, Guid id)
+    public async Task<IActionResult> GetEmployeeForCompany(Guid companyId, Guid id, [FromQuery] string fields)
     {
-        var employee = await _service.EmployeeService.GetEmployeeAsync(companyId, id, trackChanges: false);
-        return Ok(employee);
+        var employee = await _service.EmployeeService.GetEmployeeAsync(companyId, id, trackChanges: false, fields);
+        return Ok(employee.Entity);
     }
 
     [HttpPost]
@@ -36,7 +33,6 @@ public class EmployeesController : ControllerBase
     public async Task<IActionResult> CreateEmployeeForCompany(Guid companyId, [FromBody] EmployeeForCreationDto employee)
     {
         var employeeToReturn = await _service.EmployeeService.CreateEmployeeForCompanyAsync(companyId, employee, trackChanges: false);
-
         return CreatedAtRoute("GetEmployeeForCompany", new { companyId, id = employeeToReturn.Id }, employeeToReturn);
     }
 
@@ -54,7 +50,6 @@ public class EmployeesController : ControllerBase
     {
         await _service.EmployeeService.UpdateEmployeeForCompanyAsync(companyId, id, employee,
             compTrackChanges: false, empTrackChanges: true);
-
         return NoContent();
     }
 
@@ -69,14 +64,12 @@ public class EmployeesController : ControllerBase
             compTrackChanges: false, empTrackChanges: true);
 
         patchDoc.ApplyTo(result.employeeToPatch, (Microsoft.AspNetCore.JsonPatch.Adapters.IObjectAdapter)ModelState);
-
         TryValidateModel(result.employeeToPatch);
 
         if (!ModelState.IsValid)
             return UnprocessableEntity(ModelState);
 
         await _service.EmployeeService.SaveChangesForPatchAsync(result.employeeToPatch, result.employeeEntity);
-
         return NoContent();
     }
 }
