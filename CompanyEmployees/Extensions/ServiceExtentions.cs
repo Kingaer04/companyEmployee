@@ -69,7 +69,8 @@ namespace CompanyEmployees.Extensions
                 opt.ReportApiVersions = true;
                 opt.AssumeDefaultVersionWhenUnspecified = true;
                 opt.DefaultApiVersion = new ApiVersion(1, 0);
-                //opt.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                opt.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                //opt.ApiVersionReader = new QueryStringApiVersionReader("api-version"); // for queryversioning
             }).AddMvc();
         }
     }
