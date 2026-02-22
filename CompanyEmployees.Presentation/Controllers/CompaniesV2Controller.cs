@@ -4,7 +4,7 @@ using Asp.Versioning;
 namespace CompanyEmployees.Presentation.Controllers
 {
     [ApiVersion("2.0")]
-    [Route("api/companies")]
+    [Route("api/{v:apiversion}/companies")]
     [ApiController]
     public class CompaniesV2Controller : ControllerBase
     {
@@ -18,7 +18,9 @@ namespace CompanyEmployees.Presentation.Controllers
             var companies = await _services.CompanyService
                 .GetAllCompaniesAsync(trackChanges: false);
 
-            return Ok(companies);
+            var companiesV2 = companies.Select(x => $"{x.Name} V2");
+
+            return Ok(companiesV2);
         }
     }
 }
