@@ -12,7 +12,7 @@ namespace CompanyEmployees.Presentation.Controllers
 
         public CompaniesController(IServiceManager service) => _service = service;
 
-        [HttpGet]
+        [HttpGet(Name = "GetCompanies")]
         public async Task<IActionResult> GetCompanies()
         {
             var companies = await
@@ -25,7 +25,7 @@ namespace CompanyEmployees.Presentation.Controllers
             var company = await _service.CompanyService.GetCompanyAsync(id, trackChanges: false);
             return Ok(company);
         }
-        [HttpPost]
+        [HttpPost(Name = "CreateCompany")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
         {
