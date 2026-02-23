@@ -22,6 +22,7 @@ namespace CompanyEmployees.Presentation.Controllers
             return Ok(companies);
         }
         [HttpGet("{id:guid}", Name = "CompanyById")]
+        [ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetCompany(Guid id)
         {
             var company = await _service.CompanyService.GetCompanyAsync(id, trackChanges: false);
