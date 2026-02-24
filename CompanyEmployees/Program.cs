@@ -47,6 +47,7 @@ builder.Services.AddControllers()
 builder.Services.AddCustomMediaTypes();
 
 builder.Services.ConfigureVersioning();
+builder.Services.ConfigureResponseCaching();
 
 var app = builder.Build();
 
@@ -70,6 +71,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 app.UseCors("CorsPolicy");
+app.UseResponseCaching();
 app.UseAuthorization();
 
 app.MapControllers();
