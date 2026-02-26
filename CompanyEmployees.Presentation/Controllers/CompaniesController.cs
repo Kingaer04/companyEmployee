@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CompanyEmployees.Presentation.ModelBinders;
 using Asp.Versioning;
+using Marvin.Cache.Headers;
 
 
 namespace CompanyEmployees.Presentation.Controllers
@@ -23,7 +24,8 @@ namespace CompanyEmployees.Presentation.Controllers
             return Ok(companies);
         }
         [HttpGet("{id:guid}", Name = "CompanyById")]
-        [ResponseCache(Duration = 60)]
+        [HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        [HttpCacheValidation(MustRevalidate = true)]
         public async Task<IActionResult> GetCompany(Guid id)
         {
             var company = await _service.CompanyService.GetCompanyAsync(id, trackChanges: false);
