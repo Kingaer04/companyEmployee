@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Repository.Configuration;
 
 namespace Repository
 {
@@ -17,10 +18,10 @@ namespace Repository
 
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
         public DbSet<Company>? Companies { get; set; }
         public DbSet<Employee>? Employees { get; set; }
     }
 }
-
