@@ -2,6 +2,7 @@
 using CompanyEmployees.Presentation.ModelBinders;
 using Asp.Versioning;
 using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace CompanyEmployees.Presentation.Controllers
@@ -17,6 +18,7 @@ namespace CompanyEmployees.Presentation.Controllers
         public CompaniesController(IServiceManager service) => _service = service;
 
         [HttpGet(Name = "GetCompanies")]
+        [Authorize]
         public async Task<IActionResult> GetCompanies()
         {
             var companies = await
