@@ -57,7 +57,18 @@ namespace Service
             var claims = await GetClaims();
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
 
-            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            var refreshToken = GenerateRefreshToken();
+
+            _user.RefreshToken = refreshToken;
+
+            if (populateExp)
+                _user.RefreshTokenExpiraryTime = DateTime.Now.AddDays(7);
+
+            await _userManager.UpdateAsync(_user);
+
+            var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return new TokenDto(accessToken, refreshToken);
         }
 
         private SigningCredentials GetSigningCredentials()
