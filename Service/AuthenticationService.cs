@@ -101,13 +101,12 @@ namespace Service
         }
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
             var tokenOptions = new JwtSecurityToken
             (
-                issuer: jwtSettings["validIssuer"],
-                audience: jwtSettings["validAudience"],
+                issuer: _jwtConfiguration.ValidIssuer,
+                audience: _jwtConfiguration.ValidAudience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtSettings["expires"])),
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtConfiguration.Expires)),
                 signingCredentials: signingCredentials
             );
             return tokenOptions;
@@ -130,8 +129,8 @@ namespace Service
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("SECRET"))),
                 ValidateLifetime = true,
-                ValidIssuer = jwtSettings["validIssuer"],
-                ValidAudience = jwtSettings["validAudience"]
+                ValidIssuer = _jwtConfiguration.ValidIssuer,
+                ValidAudience = _jwtConfiguration.ValidAudience
             };
             var tokenHandler = new JwtSecurityTokenHandler();
             SecurityToken securityToken;
