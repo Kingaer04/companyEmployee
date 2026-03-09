@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 namespace CompanyEmployees.Presentation.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/[controller]")]
+    [Route("api/companies")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     [Authorize]
     [ResponseCache(CacheProfileName = "120SecondsDuration")]
     public class CompaniesController : ControllerBase
