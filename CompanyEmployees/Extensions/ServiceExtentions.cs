@@ -129,8 +129,13 @@ namespace CompanyEmployees.Extensions
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtConfiguration = new JwtConfiguration();
-            configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
+            configuration.GetSection(jwtConfiguration.Section).Bind(jwtConfiguration);
             var secretKey = Environment.GetEnvironmentVariable("SECRET");
+
+            // TEMPORARY - remove after debugging
+            Console.WriteLine($"Issuer: {jwtConfiguration.ValidIssuer}");
+            Console.WriteLine($"Audience: {jwtConfiguration.ValidAudience}");
+            Console.WriteLine($"Secret: {secretKey}");
 
             services.AddAuthentication(opt =>
             {
@@ -145,7 +150,6 @@ namespace CompanyEmployees.Extensions
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-
                     ValidIssuer = jwtConfiguration.ValidIssuer,
                     ValidAudience = jwtConfiguration.ValidAudience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
@@ -194,5 +198,4 @@ namespace CompanyEmployees.Extensions
             });
         }
     }
-
 }
