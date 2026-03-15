@@ -41,10 +41,10 @@ namespace CompanyEmployees.Presentation.Controllers
         /// <summary> 
         /// Creates a newly created company 
         /// </summary> 
-        /// <param name="company"></param> 
-        /// <returns>A newly created company</returns> 
-        /// <response code="201">Returns the newly created item</response> 
-        /// <response code="400">If the item is null</response> 
+        /// <param name = "company" ></ param >
+        /// < returns > A newly created company</returns> 
+        /// <response code = "201" > Returns the newly created item</response> 
+        /// <response code = "400" > If the item is null</response> 
         /// <response code="422">If the model is invalid</response> 
         [HttpPost(Name = "CreateCompany")]
         [ProducesResponseType(201)]
